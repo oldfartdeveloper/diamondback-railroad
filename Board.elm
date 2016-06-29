@@ -31,9 +31,50 @@ import Time exposing (Time, second)
 import Window
 import Keyboard exposing (KeyCode)
 import Debug exposing (log)
+import Task
 
 
 -- MODEL
+
+
+type alias Model =
+    { board : Matrix Position.Model
+    , pieces : List Piece.Model
+    , chain : Chain.Model
+    , moveCount : Int
+    , blinkState : Bool
+    , windowSize : Window.Size
+    }
+
+
+init : ( Model, Cmd Msg )
+init =
+    let
+        board =
+            createMatrix maxPosLength
+
+        pieces =
+            create81Pieces
+
+        -- one chain includes all the pieces
+        chain =
+            pieces
+
+        moveCount =
+            0
+
+        blinkState =
+            False
+    in
+        ( { board = board
+          , pieces = pieces
+          , chain = chain
+          , moveCount = moveCount
+          , blinkState = blinkState
+          , windowSize = Window.Size 0 0
+          }
+        , Task.perform (\_ -> Idle) (\x -> Resize x) Window.size
+        )
 
 
 type alias PosCount =
@@ -95,15 +136,6 @@ createMatrix : PosCount -> Matrix Position.Model
 createMatrix posCount =
     Matrix.square posCount
         (\location -> positionFromInit location)
-
-
-type alias Model =
-    { board : Matrix Position.Model
-    , pieces : List Piece.Model
-    , chain : Chain.Model
-    , moveCount : Int
-    , blinkState : Bool
-    }
 
 
 type alias PositionLocator =
@@ -181,35 +213,6 @@ initPiece tuple =
         piece
 
 
-init : ( Model, Cmd Msg )
-init =
-    let
-        board =
-            createMatrix maxPosLength
-
-        pieces =
-            create81Pieces
-
-        -- one chain includes all the pieces
-        chain =
-            pieces
-
-        moveCount =
-            0
-
-        blinkState =
-            False
-    in
-        ( { board = board
-          , pieces = pieces
-          , chain = chain
-          , moveCount = moveCount
-          , blinkState = blinkState
-          }
-        , Cmd.none
-        )
-
-
 
 -- UPDATE
 
@@ -220,6 +223,8 @@ type Msg
     | KeyDown KeyCode
     | Animate Time
     | Blink Time
+    | Resize Window.Size
+    | Idle
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -246,6 +251,16 @@ update msg model =
               }
             , Cmd.none
             )
+
+        Resize newSize ->
+            ( { model
+                | windowSize = newSize
+              }
+            , Cmd.none
+            )
+
+        Idle ->
+            ( model, Cmd.none )
 
 
 animatePiece : Piece.Model -> Time -> Piece.Model
@@ -396,6 +411,7 @@ subscriptions model =
         [ Keyboard.downs KeyDown
         , AnimationFrame.times Animate
         , Time.every (700 * Time.millisecond) Blink
+        , Window.resizes Resize
         ]
 
 
