@@ -90,13 +90,14 @@ type alias BoardSideInPixels =
     Int
 
 
-boardSideInPixels : BoardSideInPixels
-boardSideInPixels =
-    400
+boardSideSize : Model -> Int
+boardSideSize model =
+    (model.windowSize.width) - 30
 
 
-sideSize =
-    (toFloat boardSideInPixels)
+sideSize : Model -> Int
+sideSize model =
+    (toFloat boardSideSize model)
         / (toFloat maxPosLength)
 
 
@@ -119,7 +120,12 @@ squareType location =
         else
             Position.Grid
 
-
+{-
+TODO: figure out how to get dimensions from Window
+into the calling arguments.  Probably come
+from model.  Think about putting these into own
+object.
+-}
 positionFromInit : Location -> Position.Model
 positionFromInit location =
     let
@@ -490,11 +496,8 @@ view model =
         winY =
             model.windowSize.height
 
-        boardHeight =
-            winY - movesTallyHeight
-
         stringBoardHeight =
-            toString boardHeight
+            toString (boardSideSize model)
 
         movesTallyHeight =
             30
