@@ -480,27 +480,49 @@ view model =
 
         chain =
             model.chain
+
+        winX =
+            model.windowSize.width
+
+        stringWinX =
+            toString winX
+
+        winY =
+            model.windowSize.height
+
+        boardHeight =
+            winY - movesTallyHeight
+
+        stringBoardHeight =
+            toString boardHeight
+
+        movesTallyHeight =
+            30
     in
-        div []
+        div
+            [ width stringWinX
+            , height (toString winY)
+            ]
             [ svg
-                [ width "400"
-                , height "400"
+                [ width stringWinX
+                , height stringBoardHeight
                 ]
                 [ rect
                     [ stroke "blue"
                     , fill "white"
-                    , width "400"
-                    , height "400"
+                    , width stringWinX
+                    , height stringBoardHeight
                     ]
                     []
                 , svg []
                     (List.map renderPosition positions)
-                  -- , svg []
-                  --     (List.map renderPiece pieces)
                 , svg []
                     (List.map renderPiece chain)
                 ]
-            , div []
+            , div
+                [ width stringWinX
+                , height (toString movesTallyHeight)
+                ]
                 [ text (renderMoveCount model.moveCount)
                 ]
             ]
