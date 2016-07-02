@@ -22,6 +22,7 @@ import Svg.Attributes exposing (..)
 
 import AnimationFrame
 import Matrix exposing (Matrix, Location)
+import Level
 import Position
 import Piece
 import Chain
@@ -41,6 +42,7 @@ type alias Model =
     { board : Matrix Position.Model
     , pieces : List Piece.Model
     , chain : Chain.Model
+    , level : Level
     , moveCount : Int
     , blinkState : Bool
     , windowSize : Window.Size
@@ -60,6 +62,9 @@ init =
         chain =
             pieces
 
+        level =
+            Level.init
+
         moveCount =
             0
 
@@ -69,6 +74,7 @@ init =
         ( { board = board
           , pieces = pieces
           , chain = chain
+          , level = level
           , moveCount = moveCount
           , blinkState = blinkState
           , windowSize = Window.Size 0 0
@@ -77,22 +83,13 @@ init =
         )
 
 
-type alias PosCount =
-    Int
-
-
-maxPosLength : PosCount
-maxPosLength =
-    11
-
-
 type alias BoardSideInPixels =
     Int
 
 
-boardSideSize : Model -> Int
-boardSideSize model =
-    (model.windowSize.width) - 30
+boardSideSize : Window.Size -> Int
+boardSideSize model.windowSize =
+    (Window.width windowSize - 30
 
 
 sideSize : Model -> Int
