@@ -2,9 +2,26 @@
 
 ## What Just Happened?
 
-I've recently opened up this Elm game I'm developing the the Orange County
-(Calif) Elixir/Elm group as we've recently been working on this in a weekly
-hackfest.
+One of the primary objectives of this game development is that the movement
+of numerous pieces is now fully animated.  We thought that this would be a
+good milestone to introduce what we have thus far.  So, here are the install
+and usage instructions; hope you find the game mechanism interessting and
+the code useful.
+
+## Installation
+
+> Tested under OSX only at this point.  Raise an issue if you can't run
+> this under Windows or Linux.
+
+1.  [Install Elm 0.17.1](http://elm-lang.org/install)
+1.  In your directory of **Elm** projects:
+     ```bash
+git clone git@github.com:oc-elixir-elm/diamondback-railroad.git
+cd diamondback-railroad
+elm make
+elm reactor
+     ```
+1.  Then in your browser, browse http://localhost:8000/MainBoard.elm
 
 ## Purpose
 
