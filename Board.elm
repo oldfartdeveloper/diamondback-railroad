@@ -23,6 +23,7 @@ import Svg.Attributes exposing (..)
 import AnimationFrame
 import Matrix exposing (Matrix, Location)
 import Level
+import Layout
 import Position
 import Piece
 import Chain
@@ -88,7 +89,7 @@ type alias BoardSideInPixels =
 
 
 boardSideSize : Window.Size -> Int
-boardSideSize model.windowSize =
+boardSideSize windowSize =
     (Window.width windowSize - 30
 
 
