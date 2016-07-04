@@ -1,6 +1,7 @@
 module Level
     exposing
-        ( init
+        ( Model
+        , init
         )
 
 

@@ -1,9 +1,9 @@
 module Layout
     exposing
-        ( init
+        ( Model
+        , init
         , update
         , view
-        , subscriptions
         )
 
 {-|
@@ -54,28 +54,8 @@ update msg model =
             ( model, Cmd.none )
 
 
-subscriptions : Model -> Sub Msg
-subscriptions model =
-    Window.resizes Resize
-
-
 view : Model -> Html Msg
 view model =
     div []
-        [ div []
-            [ text (renderWidth model.windowSize.width)
-            ]
-        , div []
-            [ text (renderHeight model.windowSize.height)
-            ]
+        [ text "Doin' nuthin' right now"
         ]
-
-
-renderWidth : Int -> String
-renderWidth width =
-    "Width: " ++ (toString width)
-
-
-renderHeight : Int -> String
-renderHeight height =
-    "Height: " ++ (toString height)

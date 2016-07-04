@@ -43,7 +43,8 @@ type alias Model =
     { board : Matrix Position.Model
     , pieces : List Piece.Model
     , chain : Chain.Model
-    , level : Level
+    , level : Level.Model
+    , layout : Layout.Model
     , moveCount : Int
     , blinkState : Bool
     , windowSize : Window.Size
@@ -66,6 +67,9 @@ init =
         level =
             Level.init
 
+        layout =
+            Layout.init
+
         moveCount =
             0
 
@@ -76,6 +80,7 @@ init =
           , pieces = pieces
           , chain = chain
           , level = level
+          , layout = layout
           , moveCount = moveCount
           , blinkState = blinkState
           , windowSize = Window.Size 0 0
@@ -90,7 +95,7 @@ type alias BoardSideInPixels =
 
 boardSideSize : Window.Size -> Int
 boardSideSize windowSize =
-    (Window.width windowSize - 30
+    Window.width windowSize - 30
 
 
 sideSize : Model -> Int
