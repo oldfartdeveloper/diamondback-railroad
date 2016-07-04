@@ -1,6 +1,5 @@
 module Game exposing (..)
 
-import Effects exposing (Effects)
 import Html
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
@@ -19,6 +18,10 @@ type alias WindowHeight =
 
 
 type alias Model =
+  { windowWidth : WindowWidth
+  , windowHeight : WindowHeight
+  ,
+  }
   ( WindowWidth, WindowHeight, Board, Sequence )
 
 
