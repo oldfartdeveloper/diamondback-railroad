@@ -5,7 +5,7 @@
 One of the primary objectives of this game development is that the movement
 of numerous pieces is now fully animated.  We thought that this would be a
 good milestone to introduce what we have thus far.  So, here are the install
-and usage instructions; hope you find the game mechanism interessting and
+and usage instructions; hope you find the game mechanism interesting and
 the code useful.
 
 ## Installation
@@ -13,15 +13,33 @@ the code useful.
 > Tested under OSX only at this point.  Raise an issue if you can't run
 > this under Windows or Linux.
 
-1.  [Install Elm 0.17.1](http://elm-lang.org/install)
-1.  In your directory of **Elm** projects:
-     ```bash
+*  [Install Elm 0.17.1](http://elm-lang.org/install)
+*  In your directory of **Elm** projects:
+```bash
 git clone git@github.com:oc-elixir-elm/diamondback-railroad.git
 cd diamondback-railroad
+```
+
+* In the next step, for the question: "Do you approve of this plan? [Y/n] "
+answer 'Y'
+
+```bash
 elm make
 elm reactor
-     ```
-1.  Then in your browser, browse http://localhost:8000/MainBoard.elm
+```
+*  Then in your browser, browse
+[http://localhost:8000/MainBoard.elm](http://localhost:8000/MainBoard.elm)
+*  You should see the initial game board:
+![Inital Game Board](README_assets/InitialGameFile.jpg)
+
+## How to Play the Game
+
+Since the game is in development, the game rules haven't been implemented
+yet, but you can see the animation work by moving the chain of 81 pieces
+about.  You move the chain by briefly pressing the arrow keys.  So, for
+example, if you click the **left** arrow followed by repeatedly clicking the
+**down** arrow, you would see this animated sequence:
+
 
 ## Purpose
 
