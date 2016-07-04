@@ -6,20 +6,11 @@ module Board
         , subscriptions
         )
 
--- import Effects exposing (Effects)
 
 import Html exposing (Html, div)
 import Html.App
-
-
--- import Html.Attributes exposing (..)
-
 import Svg exposing (..)
 import Svg.Attributes exposing (..)
-
-
--- import Html.Events exposing (onClick)
-
 import AnimationFrame
 import Matrix exposing (Matrix, Location)
 import Level

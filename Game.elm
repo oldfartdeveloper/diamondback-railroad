@@ -1,6 +1,7 @@
 module Game
   exposing
-    ( init
+    ( Model
+    , init
     , update
     , view
     )

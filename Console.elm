@@ -26,13 +26,13 @@ import Game
 
 
 type alias Model =
-    { controlPanel : ControlPanel
-    , game : Game
+    { controlPanel : ControlPanel.Model
+    , game : Game.Model
     , windowSize : Window.Size
     }
 
 
-init : ( Model, CmdMsg )
+init : ( Model, Cmd Msg )
 init =
     ( { controlPanel =
             ControlPanel.init
