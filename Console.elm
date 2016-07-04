@@ -1,10 +1,10 @@
 module Console
-  exposing
-    ( init
-    , view
-    , update
-    , subscriptions
-    )
+    exposing
+        ( init
+        , view
+        , update
+        , subscriptions
+        )
 
 {-|
 Primary job of the console is to select the
@@ -25,7 +25,6 @@ import ControlPanel
 import Game
 
 
-
 type alias Model =
     { controlPanel : ControlPanel
     , game : Game
@@ -36,10 +35,9 @@ type alias Model =
 init : ( Model, CmdMsg )
 init =
     ( { controlPanel =
-        ControlPanel.init
-
-        game =
-          Game.init
+            ControlPanel.init
+      , game =
+            Game.init
       }
     , Task.perform (\_ -> Idle) (\x -> Resize x) Window.size
     )

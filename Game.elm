@@ -1,37 +1,42 @@
-module Game exposing (..)
-
-import Html
-import Html.Attributes exposing (..)
-import Html.Events exposing (onClick)
-import Window
-import Board
-import ControlPanel
-import Sequence
+module Game
+  exposing
+    ( init
+    , update
+    , view
+    )
 
 
-type alias WindowWidth =
-  Int
-
-
-type alias WindowHeight =
-  Int
+import Html exposing (Html, div, text)
+import Html.App
+import Task
 
 
 type alias Model =
-  { windowWidth : WindowWidth
-  , windowHeight : WindowHeight
-  ,
+  { maxPosLength : Int
   }
-  ( WindowWidth, WindowHeight, Board, Sequence )
-
 
 
 -- Will have to add Board below
 
 
-init : ( Model, Effects Action )
+init : Model
 init =
-  ( Window.width
-  , Window.height
-  , Sequence.init
-  )
+  { maxPosLength = 11
+  }
+
+
+type Msg
+    = Idle
+
+
+update : Msg -> Model -> Model
+update msg model =
+  case msg of
+    Idle ->
+      model
+
+
+view : Model -> Html Msg
+view model =
+  div []
+      [ text "Game panel here"]
