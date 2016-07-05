@@ -26,15 +26,17 @@ import Game
 import Keyboard exposing (KeyCode)
 import AnimationFrame
 import Time exposing (Time, second, millisecond)
+import Layout
+import Level
 import Matrix exposing (Location)
 import Position
 import Piece
 
 
-
 type alias Model =
     { controlPanel : ControlPanel.Model
     , game : Game.Model
+    , layout : Layout.Model
     , windowSize : Window.Size
     }
 
@@ -93,11 +95,12 @@ update msg model =
            )
         -}
         Resize newSize ->
-            ( { model
-                | windowSize = newSize
-              }
-            , Cmd.none
-            )
+          let
+            msg =
+              Layout.Resize
+            layout =
+              model.layout
+
 
         Idle ->
             ( model, Cmd.none )
@@ -116,5 +119,5 @@ subscriptions model =
 view : Model -> Html Msg
 view model =
     div []
-        [ text "Doin' nuthin' right now"
+        [ text "Console Window"
         ]
