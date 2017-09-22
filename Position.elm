@@ -9,7 +9,6 @@ module Position
         , update
         , view
         , PositionType(..)
-        , renderEmptySquare
         )
 
 import Html exposing (Html)
@@ -112,7 +111,7 @@ init =
 initWithInfo : PositionType -> Int -> Pixels -> Location -> ( Model, Cmd Msg )
 initWithInfo positionType maxPosLength sideSize location =
     init
-        |> (\(model, cmd) ->
+        |> (\( model, cmd ) ->
                 ( { model
                     | positionType = positionType
                     , maxPosLength = maxPosLength
@@ -122,6 +121,7 @@ initWithInfo positionType maxPosLength sideSize location =
                 , cmd
                 )
            )
+
 
 
 -- UPDATE
@@ -166,29 +166,17 @@ blink newBlinkState model =
 -- VIEW
 
 
-renderEmptySquare : Model -> Html Msg
-renderEmptySquare model =
+view : Model -> Html Msg
+view model =
     let
         sideSize =
             model.sideSize
 
-        role =
-            Nothing
-
-        fillColor =
-            calcFillColor model
-
-        myStrokeWidth =
-            (toString (sideSize / 20.0))
-
         ( locX, locY ) =
             model.location
 
-        pixelsX =
-            toString (sideSize * (toFloat locX))
-
-        pixelsY =
-            toString (sideSize * (toFloat locY))
+        calcPixelsFor position =
+            toString (sideSize * (toFloat position))
 
         whole =
             toString sideSize
@@ -197,33 +185,29 @@ renderEmptySquare model =
             rect
                 [ width whole
                 , height whole
-                , fill fillColor
+                , fill
+                    (model
+                        |> (\m ->
+                                -- determine background color
+                                if m.positionType == Grid then
+                                    gridFillColor
+                                else if m.visited then
+                                    visitedColor
+                                else if m.blinkState then
+                                    blinkTrueColor
+                                else
+                                    blinkFalseColor
+                           )
+                    )
                 , stroke borderColor
-                , strokeWidth myStrokeWidth
+                , strokeWidth (toString (sideSize / 20.0))
                 ]
                 []
     in
         Svg.svg
             [ version "1.1"
-            , x pixelsX
-            , y pixelsY
+            , x (calcPixelsFor locX)
+            , y (calcPixelsFor locY)
             ]
             [ rectangle
             ]
-
-
-calcFillColor : Model -> String
-calcFillColor model =
-    if model.positionType == Grid then
-        gridFillColor
-    else if model.visited then
-        visitedColor
-    else if model.blinkState then
-        blinkTrueColor
-    else
-        blinkFalseColor
-
-
-view : Model -> Html Msg
-view model =
-    renderEmptySquare model
