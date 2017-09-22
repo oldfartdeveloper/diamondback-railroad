@@ -67,6 +67,7 @@ borderColor =
     "saddlebrown"
 
 
+
 -- MODEL
 
 
@@ -110,18 +111,17 @@ init =
 
 initWithInfo : PositionType -> Int -> Pixels -> Location -> ( Model, Cmd Msg )
 initWithInfo positionType maxPosLength sideSize location =
-    let
-        ( model, cmd ) =
-            init
-    in
-        ( { model
-            | positionType = positionType
-            , maxPosLength = maxPosLength
-            , sideSize = sideSize
-            , location = location
-          }
-        , cmd
-        )
+    init
+        |> (\(model, cmd) ->
+                ( { model
+                    | positionType = positionType
+                    , maxPosLength = maxPosLength
+                    , sideSize = sideSize
+                    , location = location
+                  }
+                , cmd
+                )
+           )
 
 
 -- UPDATE
@@ -137,14 +137,12 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         MarkVisited ->
-            let
-                newModel =
-                    { model
-                        | visited =
-                            True
-                    }
-            in
-                ( newModel, Cmd.none )
+            ( { model
+                | visited =
+                    True
+              }
+            , Cmd.none
+            )
 
         Tick newTime ->
             ( model, Cmd.none )
@@ -162,6 +160,7 @@ isPerimeter model =
 blink : Bool -> Model -> Model
 blink newBlinkState model =
     { model | blinkState = newBlinkState }
+
 
 
 -- VIEW
